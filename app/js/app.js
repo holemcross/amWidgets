@@ -3,7 +3,8 @@
 // Declare app level module which depends on views, and components
 var amWidgetsApp = angular.module('amWidgetsApp', [
   'ngRoute',
-  'amWidgetsControllers'
+  'amWidgetsControllers',
+  'amWidgetsServices'
 ]).
 config(['$routeProvider', function($routeProvider) {
 
