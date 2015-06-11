@@ -14,16 +14,29 @@ $routeProvider.
     templateUrl: 'partials/dashboard.html',
     controller: 'DashboardController'
   }).
-  when('/user/', {
+  when('/user', {
     templateUrl: 'partials/users.html',
     controller: 'UserController'
   }).
-  when('/widget/', {
+  when('/user/:userId', {
+    templateUrl: 'partials/usersDetails.html',
+    controller: 'UserDetailsController'
+  }).
+  when('/widget', {
     templateUrl: 'partials/widgets.html',
     controller: 'WidgetController'
+  }).
+  when('/widget/:widgetId', {
+    templateUrl: 'partials/widgetsDetails.html',
+    controller: 'WidgetDetailsController'
   }).
   otherwise({
     redirectTo: '/dashboard'
   });
   $routeProvider.otherwise({redirectTo: '/dashboard'});
 }]);
+
+amWidgetsApp
+  .config(function($httpProvider){
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+});

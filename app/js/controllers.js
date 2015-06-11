@@ -1,5 +1,8 @@
 'use strict';
 
+/* Consts */
+
+var widgetsURI = "http://spa.tglrw.com:4000/widgets";
 /* Controllers */
 
 var amWidgetsControllers = angular.module('amWidgetsControllers', []);
@@ -16,23 +19,87 @@ amWidgetsControllers.controller('DashboardController', ['$scope', 'User','Widget
     //$scope.orderProp = 'age';
   }]);
 
-amWidgetsControllers.controller('UserController', ['$scope', 'User',
-  function($scope, User) {
+// USERS
+amWidgetsControllers.controller('UserController', ['$scope', 'User', '$location',
+  function($scope, User, $location) {
     $scope.users = User.query();
-    //$scope.orderProp = 'age';
+
+    $scope.showUser = function(user){
+      $location.path('/user/' + user.id);
+    };
   }]);
 
-amWidgetsControllers.controller('WidgetController', ['$scope', 'Widget',
-  function($scope,  Widget) {
+amWidgetsControllers.controller('UserDetailsController', ['$scope', 'User', '$routeParams',
+  function($scope, User, $routeParams) {
+    $scope.user = User.get({ userId: $routeParams.userId });
+
+  }]);
+
+// WIDGETS
+amWidgetsControllers.controller('WidgetController', ['$scope', 'Widget', '$location', '$http',
+  function($scope, Widget, $location, $http) {
     $scope.widgets = Widget.query();
-    //$scope.phone = Phone.get({phoneId: $routeParams.phoneId}, function(phone) {
-    //  $scope.mainImageUrl = phone.images[0];
-    //});
 
-    //$scope.setImage = function(imageUrl) {
-    //  $scope.mainImageUrl = imageUrl;
-    //}
+    $scope.showEditWidget = function(widget){
+      $location.path('/widget/' + widget.id);
+    }
+    $scope.createWidget = function(inData){
+
+      //var newWidget = new Widget();
+      //newWidget.name = data.name;
+      //newWidget.price = data.price;
+      //newWidget.color = data.color;
+      //newWidget.melts = data.melts;
+      //newWidget.inventory = data.inventory;
+      //newWidget.$create();
+
+      //Widget.create( { name: newWidget.name, price: newWidget.price,
+      // color: newWidget.color, melts: newWidget.melts, inventory: newWidget.inventory} );
+
+      var req = {
+         method: 'POST',
+         url: widgetsURI,
+         headers: {
+           'Content-Type': 'application/json',
+           'Access-Control-Allow-Headers': 'Content-Type',
+           'Access-Control-Allow-Origin': '*'
+         },
+         data: JSON.stringify(inData)
+        }
+      //$http.post(widgetsURI, data); //.success(successCallback);
+      $http(req);
+      //$.ajax({
+      //  type: "POST",
+      //  url: widgetsURI,
+      //  data: inData,
+      //  //success: success,
+      //  dataType: 'json'
+      //});
+      //$.post(widgetsURI, JSON.stringify(inData), null, 'json' )
+    }
   }]);
+amWidgetsControllers.controller('WidgetDetailsController', ['$scope', 'Widget','$routeParams',
+  function($scope, Widget, $routeParams) {
+
+    $scope.pickedWidget = Widget.get({ widgetId: $routeParams.widgetId });
+    console.log($routeParams.widgetId);
+
+    $scope.updateWidget = function(data){
+      var req = {
+         method: 'PUT',
+         url: widgetsURI + '/'+ data.id,
+         headers: {
+           'Content-Type': 'application/json',
+           'Access-Control-Allow-Headers': 'Content-Type',
+           'Access-Control-Allow-Origin': '*'
+         },
+         data: JSON.stringify(inData)
+        }
+      //$http.post(widgetsURI, data); //.success(successCallback);
+      $http(req);
+    };
+  }]);
+
 amWidgetsControllers.controller('HeaderController', ['$scope', '$routeParams',
   function($scope, $routeParams) {
 

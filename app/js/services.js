@@ -12,7 +12,7 @@ amWidgetsServices.factory('User', ['$resource',
 		//	query: {method:'GET', isArray:true}
 		//});
 		//return defaultUsers;
-		return $resource('http://spa.tglrw.com:4000/users/:id');
+		return $resource('http://spa.tglrw.com:4000/users/:userId');
 	}]);
 
 amWidgetsServices.factory('Widget', ['$resource',
@@ -20,8 +20,19 @@ amWidgetsServices.factory('Widget', ['$resource',
 		//return $resource('http://spa.tglrw.com:4000/widgets', {}, {
 		//	query: {method:'GET', params:{userId:'widgets'}, isArray:true}
 		//});
-		return $resource('http://spa.tglrw.com:4000/widgets/:id');
+		return $resource('http://spa.tglrw.com:4000/widgets/:widgetId');
+		//return $resource('http://spa.tglrw.com:4000/widgets/:widgetId', {},
+		//	{ 'get':    {method:'GET'},
+  		//	'save':   {method:'POST'},
+  		//	'query':  {method:'GET', isArray:true},
+  		//	'remove': {method:'DELETE'},
+  		//	'delete': {method:'DELETE'},
+  		//	'create': {method: 'POST', headers:{'content-type':'application/json'}} }
+		//	);
 	}]);
+
+
+
 
 /* Endpoints
 
