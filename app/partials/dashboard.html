@@ -6,7 +6,7 @@
               <div class="widget-icon green pull-left">
                 <i class="fa fa-users"></i>
               </div>
-              <div class="title">{5}</div>
+              <div class="title">{{ userCount }}</div>
               <div class="comment">Users</div>
             </div>
           </div>
@@ -17,7 +17,7 @@
               <div class="widget-icon green pull-left">
                 <i class="fa fa-users"></i>
               </div>
-              <div class="title">{10}</div>
+              <div class="title">{{ widgetCount }}</div>
               <div class="comment">Widgets</div>
             </div>
           </div>
@@ -31,7 +31,7 @@
         <div class="col-lg-6">
           <div class="widget">
             <div class="widget-header">Users
-              <div class="pull-right"><input type="text" class="form-control input-sm"></div>
+              <div class="pull-right"><input ng-model="userQuery" type="text" class="form-control input-sm"></div>
             </div>
             <div class="table-responsive">
               <table class="table">
@@ -42,17 +42,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="text-center">1</td>
-                    <td>Joe Bloggs</td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">2</td>
-                    <td>Timothy Hernandez</td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">3</td>
-                    <td>Joe Bickham</td>
+                  <tr ng-repeat="user in users | filter:userQuery">
+                    <td class="text-center">{{ user.id }}</td>
+                    <td>{{user.name}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -64,7 +56,7 @@
         <div class="col-lg-6">
           <div class="widget">
             <div class="widget-header">Widgets
-              <div class="pull-right"><input type="text" class="form-control input-sm"></div>
+              <div class="pull-right"><input ng-model="widgetQuery" type="text" class="form-control input-sm"></div>
             </div>
             <div class="table-responsive">
               <table class="table">
@@ -75,13 +67,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="text-center">1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td class="text-center">2</td>
-                    <td>B</td>
+                  <tr ng-repeat="widget in widgets | filter:widgetQuery">
+                    <td class="text-center">{{widget.id}}</td>
+                    <td>{{widget.name}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -90,4 +78,3 @@
         </div><!-- End Widgets -->
 
       </div><!-- End Tables -->
-      <p>{{users}}<p>
